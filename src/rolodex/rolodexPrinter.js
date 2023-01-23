@@ -12,13 +12,11 @@ import people from './people.json' assert { type: "json" };
 
 // Refactored code in ES6 syntax
 people.forEach((person) => {
-  const [firstName, lastName] = person.name?.split(' ');
+  // Check for title like Mrs.
+  const [namePart1, namePart2] = person.name?.split('. ');
+  const [firstName, lastName] = namePart2 ? namePart2?.split(' ') : namePart1?.split(' ');
   const { email, phone } = person;
 
-  console.log(`****${firstName[0]}****`);
-  console.log(`First name: ${firstName}
-Last name: ${lastName}
-Email: ${email}
-Phone number: ${phone}`);
-
+  console.debug(`****${person.name}****`);
+  console.log(`First name: ${firstName}\nLast name: ${lastName}\nEmail: ${email}\nPhone number: ${phone}\n`);
 });
